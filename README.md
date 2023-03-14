@@ -35,7 +35,7 @@ template file. You can use and copy the functions within this Power BI
 file to other Power BI files to improve performance on your Power BI
 refreshes.
 
-1)  Download the latest Power BI template in the latest<a href="https://github.com/kerski/power-query-sharepoint-faster-easier/releases" target="_blank">release page</a>
+1)  Download the latest Power BI template in the latest <a href="https://github.com/kerski/power-query-sharepoint-faster-easier/releases" target="_blank">release page</a>
 
 2)  Enter the URL of the SharePoint site and name of the SharePoint list
     you wish to import.

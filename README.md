@@ -35,10 +35,9 @@ template file. You can use and copy the functions within this Power BI
 file to other Power BI files to improve performance on your Power BI
 refreshes.
 
-1)  Download the latest Power BI template in the latest <a href="https://github.com/kerski/power-query-sharepoint-faster-easier/releases" target="_blank">release page</a>
+1)  Download the latest Power BI template in the <a href="https://github.com/kerski/power-query-sharepoint-faster-easier/releases" target="_blank">release page</a>
 
-2)  Enter the URL of the SharePoint site and name of the SharePoint list
-    you wish to import.
+2)  Enter the URL of the SharePoint site and name of the SharePoint list you wish to import.
 
 ![Figure 1](images/Figure1.png)
 *Figure 1 – First prompt when opening the template*
@@ -52,7 +51,7 @@ under the hood.
 
 4)  Within the template, open Power Query
 
-5)  As shown in Figure 3, you should see the following:
+5)  As shown in Figure 4, you should see the following:
 
     - Parameters
         - SharePoint URL -- This is the URL of the site collection or
@@ -84,7 +83,7 @@ under the hood.
     columns will need to be expanded manually. fnGetSharePointData also
     accepts a Filter query if you are familiar with OData and would like
     to filter rows of the SharePoint list before it is imported into
-    Power Bi. For example, if you needed to filter IDs less than 200 you
+    Power BI. For example, if you needed to filter IDs less than 200 you
     would write "ID lt 200".
     ![Figure 3](images/Figure3.png)
     *Figure 3 - Example of Calling fnGetSharePointData.*

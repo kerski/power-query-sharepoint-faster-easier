@@ -75,7 +75,8 @@ under the hood.
             calling this function are used to building the SharePoint
             REST API query, so you don't have to.
             
-            ![Figure 2](images/Figure2.png) *Figure 2- An example of calling the fnGetFields Function.*
+            ![Figure 2](images/Figure2.png) 
+            *Figure 2- An example of calling the fnGetFields Function.*
 
         - fnGetSharePointData -- This function accepts the table of
     information produced by the fnGetFields function. All columns are
@@ -98,6 +99,7 @@ under the hood.
         the fnGetSharePointData function.
 
 ![Figure 4](images/Figure4.png)
+
 *Figure 4 - Power Query Setup for Template*
 
 # Refreshing Data in the Service
@@ -107,6 +109,7 @@ OAuth2, set the privacy level to Organizational and choose "Skip test
 connection".
 
 ![Figure 5](images/Figure5.png)
+
 *Figure 5- Example of how to setup the connection in the Power BI Service*
 
 ## Privacy Levels

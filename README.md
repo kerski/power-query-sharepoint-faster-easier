@@ -117,7 +117,7 @@ If you receive the message "Formula.Firewall" (example below) with Power Query d
 
 ![Formual Firewall](images/formula_firewall.png)
 
-*Example of privacy setting error when using these functions *
+*Example of privacy setting error when using these functions*
 
 If you are combining SharePoint data using this method, I would suggest
 reading Matt Allington's article

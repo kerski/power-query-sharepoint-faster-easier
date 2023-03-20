@@ -113,6 +113,12 @@ connection".
 
 ## Privacy Levels
 
+If you receive the message "Formula.Firewall" (example below) with Power Query during a refresh, please update your privacy settings to ignore privacy levels and/or make sure the privacy settings are Organization for your connections.  Please keep in mind the security impact of ignoring privacy levels when combining with other data sources.
+
+![Formual Firewall](images/formula_firewall.png)
+
+*Example of privacy setting error when using these functions *
+
 If you are combining SharePoint data using this method, I would suggest
 reading Matt Allington's article
 (<https://excelguru.ca/power-query-errors-please-rebuild-this-data-combination/>)

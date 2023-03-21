@@ -92,7 +92,8 @@ let
                   = "Created" or [InternalName]
                   = "Editor" or [InternalName]
                   = "Modified" or [InternalName]
-                  = "Title"
+                  = "Title" or [InternalName]
+                  = "ID"
               )
             )
               and [InternalName]

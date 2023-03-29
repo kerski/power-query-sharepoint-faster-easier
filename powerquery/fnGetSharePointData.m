@@ -47,7 +47,7 @@ let
                   "Query String",
                   each "/_api/lists/GetByTitle('"
                     & [List Name]
-                    & "')/items?$select=ID,"
+                    & "')/items?$select="
                     & [#"$Select"]
                     & "&$expand="
                     & [#"$Expand"]

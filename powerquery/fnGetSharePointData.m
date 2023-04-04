@@ -1,5 +1,5 @@
 let
-  func = (Fields as table, FilterQuery as text) =>
+  func = (Fields as table, optional FilterQuery as text) =>
     let
       _X = (Fields as table, Source as any, NextAPIQuery as text) =>
         let
@@ -34,18 +34,19 @@ let
             else
               let
                 #"Grouped Rows" = Table.Group(
-                  Fields,
-                  {},
-                  {
-                    {"$Select", each Text.Combine([Select Parameter], ","), type text},
-                    {"$Expand", each Text.Combine([Expand Parameter], ","), type nullable text},
+                    Fields,
+                    {},
+                    {
+                    {"$Select", each Text.Combine(List.Distinct([Select Parameter]), ","), type text},
+                    // Take distinct items to remove duplicate secondary lookups
+                    {"$Expand", each Text.Combine(List.Distinct([Expand Parameter]),","), type nullable text},
                     {"List Name", each List.Min([List Name]), type text}
-                  }
+                    }
                 ),
                 #"Added Custom" = Table.AddColumn(
-                  #"Grouped Rows",
-                  "Query String",
-                  each "/_api/lists/GetByTitle('"
+                    #"Grouped Rows",
+                    "Query String",
+                    each "/_api/lists/GetByTitle('"
                     & [List Name]
                     & "')/items?$select="
                     & [#"$Select"]
@@ -78,8 +79,9 @@ let
               let
 
                 //Get ls of internal and exteral names                                      
-                LstInternalNames = Table.ToList(Table.SelectColumns(Fields, {"InternalName"})),
-                LstDisplayNames = Table.ToList(Table.SelectColumns(Fields, {"Title"})),
+                LstInternalNames = Table.ToList(Table.SelectColumns(Table.SelectRows(Fields, each [#"Table Expand Argument - Internal Name"] <> null and [#"Table Expand Argument - Internal Name"] <> ""),{"Table Expand Argument - Internal Name"})),
+                // Filter out null or empty expansion values
+                LstDisplayNames = Table.ToList(Table.SelectColumns(Table.SelectRows(Fields, each [#"Table Expand Argument - Display Name"] <> null and [#"Table Expand Argument - Display Name"] <> ""),{"Table Expand Argument - Display Name"})),
                 // Convert list of records to table                                   
                 #"Converted to Table" = Table.FromList(
                   NewRecords,

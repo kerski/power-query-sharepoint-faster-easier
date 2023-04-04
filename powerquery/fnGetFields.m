@@ -31,7 +31,7 @@ let
           Json = _GetJsonFromSharePoint(
             "_api/lists/GetByTitle('"
               & ListName
-              & "')/fields?$select=Title,Description,InternalName,SchemaXml,TypeAsString,Group,FromBaseType"
+              & "')/fields?$select=Title,Description,InternalName,SchemaXml,TypeAsString,Group,FromBaseType,IsDependentLookup,Id,PrimaryFieldId"
           ),
           // Convert to List                  
           Records = Json[d][results],
@@ -52,7 +52,10 @@ let
               "Title",
               "TypeAsString",
               "Group",
-              "FromBaseType"
+              "FromBaseType",
+              "IsDependentLookup",
+              "Id",
+              "PrimaryFieldId"
             },
             {
               "Description",
@@ -61,7 +64,10 @@ let
               "Title",
               "TypeAsString",
               "Group",
-              "FromBaseType"
+              "FromBaseType",
+              "IsDependentLookup",
+              "Id",
+              "PrimaryFieldId"              
             }
           ),
           #"Removed Other Columns" = Table.SelectColumns(
@@ -73,7 +79,10 @@ let
               "Title",
               "TypeAsString",
               "Group",
-              "FromBaseType"
+              "FromBaseType",
+              "IsDependentLookup",
+              "Id",
+              "PrimaryFieldId"              
             }
           ),
           #"Reordered Columns" = Table.ReorderColumns(
@@ -111,12 +120,20 @@ let
             #"Expanded SchemaXml",
             {{"SchemaXml.Attribute:ShowField", "Lookup Field"}}
           ),
+          // Change IsDependentLookup to logical
+          #"IsDependentLookup Change" = Table.TransformColumnTypes(#"Renamed Columns",{{"IsDependentLookup", type logical}}),
+          // Get secondary lookup name
+          #"Merged Queries" = Table.NestedJoin(#"IsDependentLookup Change", {"PrimaryFieldId"}, #"Renamed Columns", {"Id"}, "SecondaryLookup", JoinKind.LeftOuter),
+          #"Expand Secondary Lookup" = Table.ExpandTableColumn(#"Merged Queries", "SecondaryLookup", {"InternalName"}, {"SecondaryLookup.InternalName"}),
           // Prepare column to represent the select parameter for an Odata query                                                                      
           #"Add Select Parameter" = Table.AddColumn(
-            #"Renamed Columns",
+            #"Expand Secondary Lookup",
             "Select Parameter",
             each
-              if [TypeAsString] = "Lookup" or [TypeAsString] = "LookupMulti" then
+              // Handle secondary lookup first
+              if ([TypeAsString] = "Lookup" or [TypeAsString] = "LookupMulti") and [IsDependentLookup] = true then 
+                [SecondaryLookup.InternalName] & "/" & [Lookup Field] 
+              else if [TypeAsString] = "Lookup" or [TypeAsString] = "LookupMulti" then
                 [InternalName] & "/" & [Lookup Field]
               else if [TypeAsString] = "User" then
                 [InternalName] & "/EMail," & [InternalName] & "/Title"
@@ -124,20 +141,53 @@ let
                 [InternalName]
           ),
           // Prepare column to represent the expand parameter for lookup columns in an Odata query                                                                                        
-          #"Added Custom" = Table.AddColumn(
+          #"Added Expand Parameter" = Table.AddColumn(
             #"Add Select Parameter",
             "Expand Parameter",
             each
-              if [TypeAsString]
+              // Handle secondary lookup
+              if ([TypeAsString]
                 = "Lookup" or [TypeAsString]
                 = "LookupMulti" or [TypeAsString]
-                = "User"
-              then
+                = "User") and [IsDependentLookup] = true then
+                [SecondaryLookup.InternalName]
+              else if ([TypeAsString]
+                = "Lookup" or [TypeAsString]
+                = "LookupMulti" or [TypeAsString]
+                = "User") then
                 [InternalName]
               else
                 null
           ),
-          Results = Table.AddColumn(#"Added Custom", "List Name", each ListName)
+          #"Added Table Expand Argument - Display Name" = Table.AddColumn(
+            #"Added Expand Parameter",
+            "Table Expand Argument - Display Name",
+            each
+              // Handle secondary lookup
+              if ([TypeAsString]
+                = "Lookup" or [TypeAsString]
+                = "LookupMulti" or [TypeAsString]
+                = "User") and [IsDependentLookup] = true then
+                null
+              else
+                [Title]
+          ), 
+          #"Added Table Expand Argument - Internal Name" = Table.AddColumn(
+            #"Added Table Expand Argument - Display Name",
+            "Table Expand Argument - Internal Name",
+            each
+              // Handle secondary lookup
+              if ([TypeAsString]
+                = "Lookup" or [TypeAsString]
+                = "LookupMulti" or [TypeAsString]
+                = "User") and [IsDependentLookup] = true then
+                null
+              else
+                [InternalName]
+          ),                    
+          // Reduce columns to return
+          #"Reduce Columns" = Table.SelectColumns(#"Added Table Expand Argument - Internal Name",{"Title", "Description", "TypeAsString", "InternalName", "Select Parameter", "Expand Parameter","Table Expand Argument - Display Name","Table Expand Argument - Internal Name"}),          
+          Results = Table.AddColumn(#"Reduce Columns", "List Name", each ListName)
         in
           Results
     in

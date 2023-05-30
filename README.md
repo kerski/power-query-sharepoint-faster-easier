@@ -144,5 +144,4 @@ The functions are tested against two SharePoint lists that are stores as templat
 These functions are copied to a Dataflow 2.0 workflow in Microsoft Fabric and tests are ran in one or more Notebook artifacts.  
 
 ![Notbook Test](images/notebook-test.png)
-
-*Example of tests of M code using Fabric's Notebook artifact*
+*Figure 6 - Example of tests of M code using Fabric's Notebook artifact*

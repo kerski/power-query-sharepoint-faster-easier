@@ -135,7 +135,7 @@ let
                 [SecondaryLookup.InternalName] & "/" & [Lookup Field] 
               else if [TypeAsString] = "Lookup" or [TypeAsString] = "LookupMulti" then
                 [InternalName] & "/" & [Lookup Field]
-              else if [TypeAsString] = "User" then
+              else if [TypeAsString] = "User" or [TypeAsString] = "UserMulti" then
                 [InternalName] & "/EMail," & [InternalName] & "/Title"
               else
                 [InternalName]
@@ -149,12 +149,12 @@ let
               if ([TypeAsString]
                 = "Lookup" or [TypeAsString]
                 = "LookupMulti" or [TypeAsString]
-                = "User") and [IsDependentLookup] = true then
+                = "User" or [TypeAsString] = "UserMulti") and [IsDependentLookup] = true then
                 [SecondaryLookup.InternalName]
               else if ([TypeAsString]
                 = "Lookup" or [TypeAsString]
                 = "LookupMulti" or [TypeAsString]
-                = "User") then
+                = "User" or [TypeAsString] = "UserMulti") then
                 [InternalName]
               else
                 null
@@ -167,7 +167,7 @@ let
               if ([TypeAsString]
                 = "Lookup" or [TypeAsString]
                 = "LookupMulti" or [TypeAsString]
-                = "User") and [IsDependentLookup] = true then
+                = "User" or [TypeAsString] = "UserMulti") and [IsDependentLookup] = true then
                 null
               else
                 [Title]
@@ -180,16 +180,18 @@ let
               if ([TypeAsString]
                 = "Lookup" or [TypeAsString]
                 = "LookupMulti" or [TypeAsString]
-                = "User") and [IsDependentLookup] = true then
+                = "User" or [TypeAsString] = "UserMulti") and [IsDependentLookup] = true then
                 null
               else
                 [InternalName]
           ),                    
           // Reduce columns to return
           #"Reduce Columns" = Table.SelectColumns(#"Added Table Expand Argument - Internal Name",{"Title", "Description", "TypeAsString", "InternalName", "Select Parameter", "Expand Parameter","Table Expand Argument - Display Name","Table Expand Argument - Internal Name"}),          
-          Results = Table.AddColumn(#"Reduce Columns", "List Name", each ListName)
+          Results = Table.AddColumn(#"Reduce Columns", "List Name", each ListName),
+          #"Renamed columns" = Table.RenameColumns(Results, {{"TypeAsString", "Type As String"}, {"InternalName", "Internal Name"}}),
+          TextFormattedResults = Table.TransformColumnTypes(#"Renamed columns",List.Transform(Table.ColumnNames(#"Renamed columns"), each {_, type text}))
         in
-          Results
+          TextFormattedResults
     in
       _X(ListName),
   documentation = [

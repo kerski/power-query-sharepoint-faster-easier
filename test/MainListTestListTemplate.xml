@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<pnp:Provisioning xmlns:pnp="http://schemas.dev.office.com/PnP/2021/03/ProvisioningSchema">
+  <pnp:Preferences Generator="PnP.Framework, Version=1.7.3.0, Culture=neutral, PublicKeyToken=0d501f89f11b748c" />
+  <pnp:Templates ID="CONTAINER-TEMPLATE-E6FE99E56B9E4A669FB353DC9179EEBC">
+    <pnp:ProvisioningTemplate ID="TEMPLATE-E6FE99E56B9E4A669FB353DC9179EEBC" Version="1" BaseSiteTemplate="STS#3" Scope="RootSite">
+      <pnp:Lists>
+        <pnp:ListInstance Title="MainListTest" Description="Main List to Test Custom Connector" DocumentTemplate="" OnQuickLaunch="true" TemplateType="100" Url="Lists/MainListTest" EnableVersioning="true" MinorVersionLimit="0" MaxVersionLimit="50" DraftVersionVisibility="0" TemplateFeatureID="00bfea71-de22-43b2-a848-c05709900100" EnableFolderCreation="false" DefaultDisplayFormUrl="{site}/Lists/MainListTest/DispForm.aspx" DefaultEditFormUrl="{site}/Lists/MainListTest/EditForm.aspx" DefaultNewFormUrl="{site}/Lists/MainListTest/NewForm.aspx" ImageUrl="/_layouts/15/images/itgen.png?rev=47" IrmExpire="false" IrmReject="false" IsApplicationList="false" ValidationFormula="" ValidationMessage="">
+          <pnp:ContentTypeBindings>
+            <pnp:ContentTypeBinding ContentTypeID="0x01" Default="true" />
+            <pnp:ContentTypeBinding ContentTypeID="0x0120" />
+          </pnp:ContentTypeBindings>
+          <pnp:Views>
+            <View Name="{1C748E04-0D55-4FD5-A8D5-C7DEDD7DA91A}" DefaultView="TRUE" MobileView="TRUE" MobileDefaultView="TRUE" Type="HTML" DisplayName="All Items" Url="{site}/Lists/MainListTest/AllItems.aspx" Level="1" BaseViewID="1" ContentTypeID="0x" ImageUrl="/_layouts/15/images/generic.png?rev=47">
+              <Query />
+              <ViewFields>
+                <FieldRef Name="LinkTitle" />
+                <FieldRef Name="MainChoice" />
+                <FieldRef Name="MainMultiChoice" />
+                <FieldRef Name="DateOnly" />
+                <FieldRef Name="DateTime" />
+                <FieldRef Name="MultiLine" />
+                <FieldRef Name="SinglePerson" />
+                <FieldRef Name="MultiPerson" />
+                <FieldRef Name="Number" />
+                <FieldRef Name="YesNo" />
+                <FieldRef Name="Hyperlink" />
+                <FieldRef Name="Currency" />
+                <FieldRef Name="Location" />
+                <FieldRef Name="Street" />
+                <FieldRef Name="City" />
+                <FieldRef Name="State" />
+                <FieldRef Name="Image" />
+                <FieldRef Name="SingleLookup" />
+                <FieldRef Name="MultiLookup" />
+                <FieldRef Name="SecondaryLookup" />
+                <FieldRef Name="SecondaryLookup_x003a__x0020_Tes" />
+              </ViewFields>
+              <RowLimit Paged="TRUE">30</RowLimit>
+              <JSLink>clienttemplates.js</JSLink>
+              <CustomFormatter />
+            </View>
+          </pnp:Views>
+          <pnp:Fields>
+            <Field CustomFormatter="{&quot;elmType&quot;:&quot;div&quot;,&quot;style&quot;:{&quot;flex-wrap&quot;:&quot;wrap&quot;,&quot;display&quot;:&quot;flex&quot;},&quot;children&quot;:[{&quot;elmType&quot;:&quot;div&quot;,&quot;style&quot;:{&quot;box-sizing&quot;:&quot;border-box&quot;,&quot;padding&quot;:&quot;4px 8px 5px 8px&quot;,&quot;overflow&quot;:&quot;hidden&quot;,&quot;text-overflow&quot;:&quot;ellipsis&quot;,&quot;display&quot;:&quot;flex&quot;,&quot;border-radius&quot;:&quot;16px&quot;,&quot;height&quot;:&quot;24px&quot;,&quot;align-items&quot;:&quot;center&quot;,&quot;white-space&quot;:&quot;nowrap&quot;,&quot;margin&quot;:&quot;4px 4px 4px 4px&quot;},&quot;attributes&quot;:{&quot;class&quot;:{&quot;operator&quot;:&quot;:&quot;,&quot;operands&quot;:[{&quot;operator&quot;:&quot;==&quot;,&quot;operands&quot;:[&quot;@currentField&quot;,&quot;Choice 1&quot;]},&quot;sp-css-backgroundColor-BgCornflowerBlue sp-field-fontSizeSmall sp-css-color-CornflowerBlueFont&quot;,{&quot;operator&quot;:&quot;:&quot;,&quot;operands&quot;:[{&quot;operator&quot;:&quot;==&quot;,&quot;operands&quot;:[&quot;@currentField&quot;,&quot;Choice 2&quot;]},&quot;sp-css-backgroundColor-BgMintGreen sp-field-fontSizeSmall sp-css-color-MintGreenFont&quot;,{&quot;operator&quot;:&quot;:&quot;,&quot;operands&quot;:[{&quot;operator&quot;:&quot;==&quot;,&quot;operands&quot;:[&quot;@currentField&quot;,&quot;Choice 3&quot;]},&quot;sp-css-backgroundColor-BgGold sp-field-fontSizeSmall sp-css-color-GoldFont&quot;,{&quot;operator&quot;:&quot;:&quot;,&quot;operands&quot;:[{&quot;operator&quot;:&quot;==&quot;,&quot;operands&quot;:[&quot;@currentField&quot;,&quot;&quot;]},&quot;&quot;,&quot;sp-field-borderAllRegular sp-field-borderAllSolid sp-css-borderColor-neutralSecondary&quot;]}]}]}]}},&quot;txtContent&quot;:&quot;@currentField&quot;}],&quot;templateId&quot;:&quot;BgColorChoicePill&quot;}" DisplayName="MainChoice" FillInChoice="FALSE" Format="Dropdown" IsModern="TRUE" Name="MainChoice" Title="MainChoice" Type="Choice" ID="{d8173a20-c12b-4f24-97f6-7ef9f93f4324}" SourceID="{{listid:MainListTest}}" StaticName="MainChoice" ColName="nvarchar7" RowOrdinal="0">
+              <CHOICES>
+                <CHOICE>Choice 1</CHOICE>
+                <CHOICE>Choice 2</CHOICE>
+                <CHOICE>Choice 3</CHOICE>
+              </CHOICES>
+            </Field>
+            <Field CustomFormatter="{&quot;elmType&quot;:&quot;div&quot;,&quot;style&quot;:{&quot;flex-wrap&quot;:&quot;wrap&quot;,&quot;display&quot;:&quot;flex&quot;},&quot;children&quot;:[{&quot;forEach&quot;:&quot;__INTERNAL__ in @currentField&quot;,&quot;elmType&quot;:&quot;div&quot;,&quot;style&quot;:{&quot;box-sizing&quot;:&quot;border-box&quot;,&quot;padding&quot;:&quot;4px 8px 5px 8px&quot;,&quot;overflow&quot;:&quot;hidden&quot;,&quot;text-overflow&quot;:&quot;ellipsis&quot;,&quot;display&quot;:&quot;flex&quot;,&quot;border-radius&quot;:&quot;16px&quot;,&quot;height&quot;:&quot;24px&quot;,&quot;align-items&quot;:&quot;center&quot;,&quot;white-space&quot;:&quot;nowrap&quot;,&quot;margin&quot;:&quot;4px 4px 4px 4px&quot;},&quot;attributes&quot;:{&quot;class&quot;:{&quot;operator&quot;:&quot;:&quot;,&quot;operands&quot;:[{&quot;operator&quot;:&quot;==&quot;,&quot;operands&quot;:[&quot;[$__INTERNAL__]&quot;,&quot;Choice 1&quot;]},&quot;sp-css-backgroundColor-BgCornflowerBlue sp-css-color-CornflowerBlueFont&quot;,{&quot;operator&quot;:&quot;:&quot;,&quot;operands&quot;:[{&quot;operator&quot;:&quot;==&quot;,&quot;operands&quot;:[&quot;[$__INTERNAL__]&quot;,&quot;Choice 2&quot;]},&quot;sp-css-backgroundColor-BgMintGreen sp-css-color-MintGreenFont&quot;,{&quot;operator&quot;:&quot;:&quot;,&quot;operands&quot;:[{&quot;operator&quot;:&quot;==&quot;,&quot;operands&quot;:[&quot;[$__INTERNAL__]&quot;,&quot;Choice 3&quot;]},&quot;sp-css-backgroundColor-BgGold sp-css-color-GoldFont&quot;,&quot;sp-field-borderAllRegular sp-field-borderAllSolid sp-css-borderColor-neutralSecondary&quot;]}]}]}},&quot;txtContent&quot;:&quot;[$__INTERNAL__]&quot;}],&quot;templateId&quot;:&quot;BgColorChoicePill&quot;}" DisplayName="MainMultiChoice" FillInChoice="FALSE" Format="Dropdown" IsModern="TRUE" Name="MainMultiChoice" Title="MainMultiChoice" Type="MultiChoice" ID="{0a1f47bc-b60a-45ee-80a1-00604feb3212}" SourceID="{{listid:MainListTest}}" StaticName="MainMultiChoice" ColName="ntext2" RowOrdinal="0">
+              <CHOICES>
+                <CHOICE>Choice 1</CHOICE>
+                <CHOICE>Choice 2</CHOICE>
+                <CHOICE>Choice 3</CHOICE>
+              </CHOICES>
+            </Field>
+            <Field DisplayName="DateOnly" FriendlyDisplayFormat="Disabled" Format="DateOnly" IsModern="TRUE" Name="DateOnly" Title="DateOnly" Type="DateTime" ID="{d4221a3a-727b-41e3-823c-a3180fb4eef8}" SourceID="{{listid:MainListTest}}" StaticName="DateOnly" ColName="datetime1" RowOrdinal="0" />
+            <Field DisplayName="DateTime" FriendlyDisplayFormat="Disabled" Format="DateTime" IsModern="TRUE" Name="DateTime" Title="DateTime" Type="DateTime" ID="{d780c685-b9b1-45a7-941a-02ddf49b7ef5}" SourceID="{{listid:MainListTest}}" StaticName="DateTime" ColName="datetime2" RowOrdinal="0" />
+            <Field AppendOnly="FALSE" DisplayName="MultiLine" Format="Dropdown" IsModern="TRUE" IsolateStyles="FALSE" Name="MultiLine" RichText="FALSE" RichTextMode="Compatible" Title="MultiLine" Type="Note" ID="{d17bc821-7871-4f28-a2a6-f5bad32eed9e}" SourceID="{{listid:MainListTest}}" StaticName="MultiLine" ColName="ntext3" RowOrdinal="0" />
+            <Field DisplayName="SinglePerson" Format="Dropdown" IsModern="TRUE" List="UserInfo" Name="SinglePerson" Title="SinglePerson" Type="User" UserSelectionMode="0" UserSelectionScope="0" ID="{193f9e44-6bb9-4790-b25a-209ceffb843d}" SourceID="{{listid:MainListTest}}" StaticName="SinglePerson" ColName="int1" RowOrdinal="0" />
+            <Field DisplayName="MultiPerson" Format="Dropdown" IsModern="TRUE" List="UserInfo" Mult="TRUE" Name="MultiPerson" Title="MultiPerson" Type="UserMulti" UserSelectionMode="0" UserSelectionScope="0" ID="{ff68df4a-3fd4-4585-929c-e4550c14747b}" SourceID="{{listid:MainListTest}}" StaticName="MultiPerson" ColName="int2" RowOrdinal="0" />
+            <Field CommaSeparator="TRUE" CustomUnitOnRight="TRUE" DisplayName="Number" Format="Dropdown" IsModern="TRUE" Name="Number" Percentage="FALSE" Title="Number" Type="Number" Unit="None" ID="{debb06be-1f2b-49ec-b0bd-21b3a0654e47}" SourceID="{{listid:MainListTest}}" StaticName="Number" ColName="float1" RowOrdinal="0" />
+            <Field DisplayName="YesNo" Format="Dropdown" IsModern="TRUE" Name="YesNo" Title="YesNo" Type="Boolean" ID="{3ce88162-2115-4331-a4f5-1c12d45d6cce}" SourceID="{{listid:MainListTest}}" StaticName="YesNo" ColName="bit1" RowOrdinal="0">
+              <Default>1</Default>
+            </Field>
+            <Field DisplayName="Hyperlink" Format="Hyperlink" IsModern="TRUE" Name="Hyperlink" Title="Hyperlink" Type="URL" ID="{aa018ad2-476b-46f8-8f33-3130772cd6e2}" SourceID="{{listid:MainListTest}}" StaticName="Hyperlink" ColName="nvarchar8" RowOrdinal="0" ColName2="nvarchar9" RowOrdinal2="0" />
+            <Field CommaSeparator="TRUE" DisplayName="Currency" Format="$123,456.00 (United States)" IsModern="TRUE" LCID="1033" Name="Currency" Title="Currency" Type="Currency" ID="{0e408bc7-56d1-4b9b-91a4-31aa65b8529a}" SourceID="{{listid:MainListTest}}" StaticName="Currency" ColName="float2" RowOrdinal="0" />
+            <Field DisplayName="Location" Format="Dropdown" IsModern="TRUE" Name="Location" Title="Location" Type="Location" ID="{42f76971-05b3-4aa4-83a0-9d08f95454e2}" SourceID="{{listid:MainListTest}}" StaticName="Location" ColName="ntext4" RowOrdinal="0" />
+            <Field Type="Text" DisplayName="Location: Country/Region" StaticName="42f76971-05b3-4aa4-83a0-9d08f95454e2CountryOrRegion" Name="CountryOrRegion" ID="{159185ca-459b-4423-b9e5-8c9faa103c17}" ShowInViewForms="TRUE" Required="FALSE" Hidden="FALSE" CanToggleHidden="TRUE" FieldRef="42f76971-05b3-4aa4-83a0-9d08f95454e2" ReadOnly="TRUE" Sealed="TRUE" AllowDeletion="TRUE" FromBaseType="TRUE" Filterable="TRUE" Sortable="TRUE" SourceID="{{listid:MainListTest}}" ColName="nvarchar10" RowOrdinal="0" />
+            <Field Type="Text" DisplayName="Location: State" StaticName="42f76971-05b3-4aa4-83a0-9d08f95454e2State" Name="State" ID="{81a7709e-047c-475a-8f58-6814f56c6ed3}" ShowInViewForms="TRUE" Required="FALSE" Hidden="FALSE" CanToggleHidden="TRUE" FieldRef="42f76971-05b3-4aa4-83a0-9d08f95454e2" ReadOnly="TRUE" Sealed="TRUE" AllowDeletion="TRUE" FromBaseType="TRUE" Filterable="TRUE" Sortable="TRUE" SourceID="{{listid:MainListTest}}" ColName="nvarchar11" RowOrdinal="0" />
+            <Field Type="Text" DisplayName="Location: City" StaticName="42f76971-05b3-4aa4-83a0-9d08f95454e2City" Name="City" ID="{8b101311-d1d5-42f5-8587-38159bda3c38}" ShowInViewForms="TRUE" Required="FALSE" Hidden="FALSE" CanToggleHidden="TRUE" FieldRef="42f76971-05b3-4aa4-83a0-9d08f95454e2" ReadOnly="TRUE" Sealed="TRUE" AllowDeletion="TRUE" FromBaseType="TRUE" Filterable="TRUE" Sortable="TRUE" SourceID="{{listid:MainListTest}}" ColName="nvarchar12" RowOrdinal="0" />
+            <Field Type="Text" DisplayName="Location: Postal Code" StaticName="42f76971-05b3-4aa4-83a0-9d08f95454e2PostalCode" Name="PostalCode" ID="{ba0d6834-e5b1-41de-95be-891d3603460d}" ShowInViewForms="TRUE" Required="FALSE" Hidden="FALSE" CanToggleHidden="TRUE" FieldRef="42f76971-05b3-4aa4-83a0-9d08f95454e2" ReadOnly="TRUE" Sealed="TRUE" AllowDeletion="TRUE" FromBaseType="TRUE" Filterable="TRUE" Sortable="TRUE" SourceID="{{listid:MainListTest}}" ColName="nvarchar13" RowOrdinal="0" />
+            <Field Type="Text" DisplayName="Location: Street" StaticName="42f76971-05b3-4aa4-83a0-9d08f95454e2Street" Name="Street" ID="{ad6186b0-68ef-4b5e-9c3e-22df2c17e0e9}" ShowInViewForms="TRUE" Required="FALSE" Hidden="FALSE" CanToggleHidden="TRUE" FieldRef="42f76971-05b3-4aa4-83a0-9d08f95454e2" ReadOnly="TRUE" Sealed="TRUE" AllowDeletion="TRUE" FromBaseType="TRUE" Filterable="TRUE" Sortable="TRUE" SourceID="{{listid:MainListTest}}" ColName="nvarchar14" RowOrdinal="0" />
+            <Field Type="Geolocation" DisplayName="Location: Coordinates" StaticName="42f76971-05b3-4aa4-83a0-9d08f95454e2GeoLoc" Name="GeoLoc" ID="{60d445d6-a097-4a97-90d3-e60375834baf}" ShowInViewForms="TRUE" Required="FALSE" Hidden="FALSE" CanToggleHidden="TRUE" FieldRef="42f76971-05b3-4aa4-83a0-9d08f95454e2" ReadOnly="TRUE" Sealed="TRUE" AllowDeletion="TRUE" FromBaseType="TRUE" Filterable="TRUE" Sortable="TRUE" SourceID="{{listid:MainListTest}}" ColName="geography1" RowOrdinal="0" />
+            <Field Type="Text" DisplayName="Location: Name" StaticName="42f76971-05b3-4aa4-83a0-9d08f95454e2DispName" Name="DispName" ID="{c1d47f07-6918-4d8f-b65f-23647d383eac}" ShowInViewForms="TRUE" Required="FALSE" Hidden="FALSE" CanToggleHidden="TRUE" FieldRef="42f76971-05b3-4aa4-83a0-9d08f95454e2" ReadOnly="TRUE" Sealed="TRUE" AllowDeletion="TRUE" FromBaseType="TRUE" Filterable="TRUE" Sortable="TRUE" SourceID="{{listid:MainListTest}}" ColName="nvarchar15" RowOrdinal="0" />
+            <Field DisplayName="Image" Format="Thumbnail" IsModern="TRUE" Name="Image" Title="Image" Type="Thumbnail" ID="{cf586262-8a91-4a74-aefc-f0f91bb3e380}" SourceID="{{listid:MainListTest}}" StaticName="Image" ColName="ntext5" RowOrdinal="0" />
+            <Field DisplayName="SingleLookup" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:LookupListTest}" Name="SingleLookup" ShowField="Title" Title="SingleLookup" Type="Lookup" ID="{0ebf596b-16ed-4660-912d-d78c31bcbb6b}" SourceID="{{listid:MainListTest}}" StaticName="SingleLookup" ColName="int3" RowOrdinal="0" />
+            <Field DisplayName="MultiLookup" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:LookupListTest}" Mult="TRUE" Name="MultiLookup" ShowField="Title" Title="MultiLookup" Type="LookupMulti" ID="{237eb5c3-45e3-4d55-9f5b-7de5e0881ccd}" SourceID="{{listid:MainListTest}}" StaticName="MultiLookup" ColName="int4" RowOrdinal="0" />
+            <Field DisplayName="SecondaryLookup" Format="Dropdown" Indexed="FALSE" IsModern="TRUE" List="{listid:LookupListTest}" Name="SecondaryLookup" ShowField="Title" Title="SecondaryLookup" Type="Lookup" ID="{a71392ce-721d-4575-9cec-6d31b299213a}" SourceID="{{listid:MainListTest}}" StaticName="SecondaryLookup" ColName="int5" RowOrdinal="0" />
+            <Field DisplayName="SecondaryLookup: TestNumber" FieldRef="a71392ce-721d-4575-9cec-6d31b299213a" Format="Dropdown" IsModern="TRUE" List="{listid:LookupListTest}" Name="SecondaryLookup_x003a__x0020_Tes" ShowField="TestNumber" Title="SecondaryLookup: TestNumber" Type="Lookup" ID="{6135631e-d59a-4d8b-a3db-aed9fb71dd74}" SourceID="{{listid:MainListTest}}" StaticName="SecondaryLookup_x003a__x0020_Tes" ReadOnly="TRUE" Version="1" />
+          </pnp:Fields>
+          <pnp:FieldRefs>
+            <pnp:FieldRef ID="76d13cd2-1bae-45a5-8b74-545b87b65037" Name="_ColorTag" DisplayName="Color Tag" />
+          </pnp:FieldRefs>
+          <pnp:Webhooks>
+            <pnp:Webhook ServerNotificationUrl="https://southcentralus1-0.pushnp.svc.ms/notifications?token=64bcf31a-32fa-4831-8ccc-7ae6c9f1fa26" ExpiresInDays="1" />
+          </pnp:Webhooks>
+        </pnp:ListInstance>
+      </pnp:Lists>
+    </pnp:ProvisioningTemplate>
+  </pnp:Templates>
+</pnp:Provisioning>

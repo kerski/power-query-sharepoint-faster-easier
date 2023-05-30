@@ -115,7 +115,7 @@ connection".
 
 If you receive the message "Formula.Firewall" (example below) with Power Query during a refresh, please update your privacy settings to ignore privacy levels and/or make sure the privacy settings are Organization for your connections.  Please keep in mind the security impact of ignoring privacy levels when combining with other data sources.
 
-![Formual Firewall](images/formula_firewall.png)
+![Formula Firewall](images/formula_firewall.png)
 
 *Example of privacy setting error when using these functions*
 
@@ -127,6 +127,18 @@ Typically, you won't encounter this issue on your desktop, so it's best
 to understand how to design your Power Query correctly to avoid this
 issue in the Power BI Service.
 
-## Dataflows
+## Testing
 
-Coming soon...
+Leveraging Microsoft Fabric, the two functions fnGetFields.m and fnGetSharePointData.m are tested.  
+
+The functions are tested against two SharePoint lists that are stores as templates in the <a href="./tests" target="_blank">test folder</a>.
+
+1) MainListTestListTemplate.xml - This list called MainListTest contains many permutations of the list column types for testing.
+
+2) LookupListTestListTemplate.xml - This list called LookupListTest is used by MainListTest to support lookup columns.
+
+These functions are copied to a Dataflow 2.0 workflow in Microsoft Fabric and tests are ran in one or more Notebook artifacts.  
+
+![Notbook Test](images/notebook-test.png)
+
+*Example of tests of M code using Fabric's Notebook artifact*

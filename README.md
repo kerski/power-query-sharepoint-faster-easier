@@ -1,5 +1,9 @@
 # A Faster (Easier?) way to import SharePoint list data into Power BI
 
+If you like this work and want to support my costs for licensing and testing, you can contribute to my page on <a href="https://www.buymeacoffee.com/jkerski5" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>.  There's no pressure, and this code is still under MIT license and free to use whether you contribute or not.  
+
+# Background
+
 If you're importing SharePoint lists into your Power BI model, you may
 have experienced issues with existing connectors:
 

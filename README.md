@@ -121,7 +121,7 @@ If you receive the message "Formula.Firewall" (example below) with Power Query d
 
 ![Formula Firewall](images/formula_firewall.png)
 
-*Example of privacy setting error when using these functions*
+*Figure 6 - Example of privacy setting error when using these functions*
 
 If you are combining SharePoint data using this method, I would suggest
 reading Matt Allington's article
@@ -144,4 +144,4 @@ The functions are tested against two SharePoint lists that are stores as templat
 These functions are copied to a Dataflow 2.0 workflow in Microsoft Fabric and tests are ran in one or more Notebook artifacts.  
 
 ![Notbook Test](images/notebook-test.png)
-*Figure 6 - Example of tests of M code using Fabric's Notebook artifact*
+*Figure 7 - Example of tests of M code using Fabric's Notebook artifact*

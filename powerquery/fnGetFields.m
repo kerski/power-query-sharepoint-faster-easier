@@ -102,7 +102,8 @@ let
                   = "Editor" or [InternalName]
                   = "Modified" or [InternalName]
                   = "Title" or [InternalName]
-                  = "ID"
+                  = "ID" or [InternalName]
+                  = "Attachments"
               )
             )
               and [InternalName]
@@ -137,6 +138,8 @@ let
                 [InternalName] & "/" & [Lookup Field]
               else if [TypeAsString] = "User" or [TypeAsString] = "UserMulti" then
                 [InternalName] & "/EMail," & [InternalName] & "/Title"
+              else if [TypeAsString] = "Attachments" then
+                [InternalName] & ",AttachmentFiles"
               else
                 [InternalName]
           ),
@@ -156,6 +159,8 @@ let
                 = "LookupMulti" or [TypeAsString]
                 = "User" or [TypeAsString] = "UserMulti") then
                 [InternalName]
+              else if [TypeAsString] = "Attachments" then
+                "AttachmentFiles"
               else
                 null
           ),
@@ -169,6 +174,8 @@ let
                 = "LookupMulti" or [TypeAsString]
                 = "User" or [TypeAsString] = "UserMulti") and [IsDependentLookup] = true then
                 null
+              else if [TypeAsString] = "Attachments" then
+                "AttachmentFiles"                
               else
                 [Title]
           ), 
@@ -182,6 +189,8 @@ let
                 = "LookupMulti" or [TypeAsString]
                 = "User" or [TypeAsString] = "UserMulti") and [IsDependentLookup] = true then
                 null
+              else if [TypeAsString] = "Attachments" then
+                "AttachmentFiles"                 
               else
                 [InternalName]
           ),                    

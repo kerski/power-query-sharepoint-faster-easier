@@ -90,8 +90,10 @@ let
                   null,
                   ExtraValues.Error
                 ),
-                // Expand based on fields supplied.                                   
-                #"Expanded Column1" = Table.ExpandRecordColumn(
+                // Row Count Check
+                RowCount = Table.RowCount(#"Converted to Table"),
+                // Check Row Count, if Zero then return just Display Names as a table, else Expand based on fields supplied.                                   
+                #"Expanded Column1" = if RowCount = 0 then #table(LstDisplayNames,{}) else Table.ExpandRecordColumn(
                   #"Converted to Table",
                   "Column1",
                   LstInternalNames,

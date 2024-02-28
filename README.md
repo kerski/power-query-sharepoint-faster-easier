@@ -18,9 +18,6 @@ have experienced issues with existing connectors:
     many of a tutorial session with co-workers on why a SharePoint
     column has an internal name with the characters "\_x0020\_" in it.
 
-3)  The OData connector does not support relative URLs which makes
-    parameterizing your workspace environments difficult.
-
 Ultimately, we want a faster SharePoint connector that doesn't require
 us to understand the SharePoint REST API.
 

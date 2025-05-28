@@ -1,7 +1,7 @@
 let
-  func = (Fields as table, optional FilterQuery as text) as any =>
+  func = (Fields as table, optional FilterQuery as text) as table =>
     let
-      _X = (Fields as table) as any =>
+      _X = (Fields as table) as table =>
         let
 
           // Define internal function                           
@@ -56,24 +56,31 @@ let
                 QueryString2,          
           // Build Base URL for API Call                                  
           BaseUrlLength = Text.Length(SharePoint_URL),  
-          // Make Initial Call 
-          InitialCall =  _GetJsonFromSharePoint(QueryString),
+          // Make API Calls
           InitialResults = List.Generate(
               () =>
-                  [
-                    Request = InitialCall,
-                    NextLink = try InitialCall[d][__next] otherwise null,
-                    HasNext = true
-                  ],
-              each [HasNext],
-              each 
-                  [
-                    Request = _GetJsonFromSharePoint(Text.Range([NextLink], BaseUrlLength)),
-                    NextLink = try [Request][d][__next] otherwise null,
-                    HasNext = _HasNext([Request])
-                  ],
+                  let
+                      response = _GetJsonFromSharePoint(QueryString),
+                      nextLink = try response[d][__next] otherwise null
+                  in
+                      [
+                          Request = response,
+                          NextLink = nextLink,
+                          Done = false
+                      ],
+              each not [Done],
+              each
+                  let
+                      nextPage = if [NextLink] <> null then _GetJsonFromSharePoint(Text.Range([NextLink], BaseUrlLength)) else null,
+                      newNextLink = if nextPage <> null then try nextPage[d][__next] otherwise null else null
+                  in
+                      [
+                          Request = nextPage,
+                          NextLink = newNextLink,
+                          Done = nextPage = null
+                      ],
               each [Request][d][results]
-            ),
+          ),
           CombinedResults = List.Combine(InitialResults),
           // Call Recursively if Next Link exists                                       
           Result =

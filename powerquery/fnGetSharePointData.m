@@ -1,37 +1,28 @@
 let
-  func = (Fields as table, optional FilterQuery as text) =>
+  func = (Fields as table, optional FilterQuery as text) as any =>
     let
-      _X = (Fields as table, Source as any, NextAPIQuery as text) =>
+      _X = (Fields as table) as any =>
         let
 
           // Define internal function                           
-          _GetJsonFromSharePoint = (url) =>
+          _GetJsonFromSharePoint = (url as text) as record =>
             let
 
               //Set Options and odata/json response                                     
               Options = [RelativePath = url, Headers = [Accept = "application/json;odata=verbose"]],
-              RawData = Web.Contents(#"SharePoint URL", Options),
+              RawData = Web.Contents(SharePoint_URL, Options),
               Json = Json.Document(RawData)
             in
               Json,
           // Define Next Link internal function                                     
-          _GetNextLink = (jsonResults) =>
+          _HasNext = (jsonResults as record) as logical =>
             let
-              #"Converted to Table" = Record.ToTable(jsonResults),
-              #"Expanded Value" = Table.ExpandRecordColumn(
-                #"Converted to Table",
-                "Value",
-                {"__next"},
-                {"Value.__next"}
-              ),
-              #"Removed Columns" = Table.RemoveColumns(#"Expanded Value", {"Name"})
+              test = try jsonResults[d][__next] <> null otherwise false
             in
-              Table.FirstValue(#"Removed Columns"),
-          // Convert Table to Query String is NextAPIQuery is not supplied                                                                
+              test,
+
+          // Build Query String                                                             
           QueryString =
-            if NextAPIQuery <> null and NextAPIQuery <> "" then
-              NextAPIQuery
-            else
               let
                 #"Grouped Rows" = Table.Group(
                     Fields,
@@ -62,20 +53,30 @@ let
                   else
                     QueryString
               in
-                QueryString2,
-          //With the internal functions defined, get the data                                                   
-          Json = _GetJsonFromSharePoint(QueryString),
-          // Convert to List                  
-          Records = Json[d][results],
-          // Combine results                  
-          NewRecords = if Source is null then Records else List.Combine({Source, Records}),
-          // Get next link, if exists                           
-          NextLink = _GetNextLink(Json),
-          // Build Base URL for recursive call                                    
-          BaseUrlLength = Text.Length(#"SharePoint URL"),
+                QueryString2,          
+          // Build Base URL for API Call                                  
+          BaseUrlLength = Text.Length(SharePoint_URL),  
+          // Make Initial Call 
+          InitialCall =  _GetJsonFromSharePoint(QueryString),
+          InitialResults = List.Generate(
+              () =>
+                  [
+                    Request = InitialCall,
+                    NextLink = try InitialCall[d][__next] otherwise null,
+                    HasNext = true
+                  ],
+              each [HasNext],
+              each 
+                  [
+                    Request = _GetJsonFromSharePoint(Text.Range([NextLink], BaseUrlLength)),
+                    NextLink = try [Request][d][__next] otherwise null,
+                    HasNext = _HasNext([Request])
+                  ],
+              each [Request][d][results]
+            ),
+          CombinedResults = List.Combine(InitialResults),
           // Call Recursively if Next Link exists                                       
           Result =
-            if NextLink is null then
               let
 
                 //Get ls of internal and exteral names                                      
@@ -84,7 +85,7 @@ let
                 LstDisplayNames = Table.ToList(Table.SelectColumns(Table.SelectRows(Fields, each [#"Table Expand Argument - Display Name"] <> null and [#"Table Expand Argument - Display Name"] <> ""),{"Table Expand Argument - Display Name"})),
                 // Convert list of records to table                                   
                 #"Converted to Table" = Table.FromList(
-                  NewRecords,
+                  CombinedResults,
                   Splitter.SplitByNothing(),
                   null,
                   null,
@@ -101,12 +102,10 @@ let
                 )
               in
                 #"Expanded Column1"
-            else
-              @_X(Fields, NewRecords, Text.Range(NextLink, BaseUrlLength))
         in
-          Result
+         Result
     in
-      _X(Fields, null, ""),
+      _X(Fields),
   documentation = [
     Documentation.Name = " fnGetSharePointData ",
     Documentation.Description

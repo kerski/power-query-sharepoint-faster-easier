@@ -13,13 +13,7 @@ let
               RawData = Web.Contents(SharePoint_URL, Options),
               Json = Json.Document(RawData)
             in
-              Json,
-          // Define Next Link internal function                                     
-          _HasNext = (jsonResults as record) as logical =>
-            let
-              test = try jsonResults[d][__next] <> null otherwise false
-            in
-              test,
+              Json[d],
 
           // Build Query String                                                             
           QueryString =
@@ -61,7 +55,7 @@ let
               () =>
                   let
                       response = _GetJsonFromSharePoint(QueryString),
-                      nextLink = try response[d][__next] otherwise null
+                      nextLink = try response[__next] otherwise null
                   in
                       [
                           Request = response,
@@ -72,14 +66,14 @@ let
               each
                   let
                       nextPage = if [NextLink] <> null then _GetJsonFromSharePoint(Text.Range([NextLink], BaseUrlLength)) else null,
-                      newNextLink = if nextPage <> null then try nextPage[d][__next] otherwise null else null
+                      newNextLink = if nextPage <> null then try nextPage[__next] otherwise null else null
                   in
                       [
                           Request = nextPage,
                           NextLink = newNextLink,
                           Done = nextPage = null
                       ],
-              each [Request][d][results]
+              each [Request][results]
           ),
           CombinedResults = List.Combine(InitialResults),
           // Call Recursively if Next Link exists                                       

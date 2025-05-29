@@ -55,10 +55,10 @@ let
               () =>
                   let
                       response = _GetJsonFromSharePoint(QueryString),
-                      nextLink = try response[__next] otherwise null
+                      nextLink = response[__next]?
                   in
                       [
-                          Request = response,
+                          Request = response[results],
                           NextLink = nextLink,
                           Done = false
                       ],
@@ -66,14 +66,14 @@ let
               each
                   let
                       nextPage = if [NextLink] <> null then _GetJsonFromSharePoint(Text.Range([NextLink], BaseUrlLength)) else null,
-                      newNextLink = if nextPage <> null then try nextPage[__next] otherwise null else null
+                      newNextLink = if nextPage <> null then nextPage[__next]? else null
                   in
                       [
-                          Request = nextPage,
+                          Request = List.Buffer(nextPage[results]),
                           NextLink = newNextLink,
                           Done = nextPage = null
                       ],
-              each [Request][results]
+              each [Request]
           ),
           CombinedResults = List.Combine(InitialResults),
           // Call Recursively if Next Link exists                                       

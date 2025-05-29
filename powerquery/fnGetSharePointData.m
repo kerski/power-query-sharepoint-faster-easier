@@ -11,9 +11,9 @@ let
               //Set Options and odata/json response                                     
               Options = [RelativePath = url, Headers = [Accept = "application/json;odata=verbose"]],
               RawData = Web.Contents(SharePoint_URL, Options),
-              Json = Json.Document(RawData)
+              Json = Json.Document(RawData)[d]?
             in
-              Json[d],
+              Json,
 
           // Build Query String                                                             
           QueryString =
